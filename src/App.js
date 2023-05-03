@@ -6,11 +6,11 @@ import userEvent from "@testing-library/user-event";
 function App() {
   let post = "성북 우동 맛집";
   let [글제목, 글제목변경] = useState([
-    "가방 추천",
+    "떡볶이 추천",
     "파스타 추천",
     "초콜렛 추천",
   ]);
-  let title = "희민쓰";
+  let [title, setTitle] = useState(0);
 
   let [따봉, 따봉변경] = useState([0, 1, 4]);
   let [modal, setModal] = useState(false);
@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <div className="black-nav">
-        <h4>{title} 블로그</h4>
+        <h4>React 블로그</h4>
       </div>
 
       {글제목.map(function (el, i) {
@@ -27,6 +27,7 @@ function App() {
             <h4
               onClick={() => {
                 setModal(!modal);
+                setTitle(i);
               }}
             >
               {el /* {글제목[i]} */}
@@ -44,7 +45,16 @@ function App() {
           </div>
         );
       })}
-      {modal == true ? <Modal /> : ""}
+      {modal == true ? (
+        <Modal
+          color="orangered"
+          글제목={글제목}
+          글제목변경={글제목변경}
+          title={title}
+        />
+      ) : (
+        ""
+      )}
 
       <button
         onClick={() => {
@@ -58,12 +68,19 @@ function App() {
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ backgroundColor: props.color }}>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button
+        onClick={() => {
+          props.글제목변경(["여자 코트 추천", "파스타 추천", "초콜렛 추천"]);
+        }}
+      >
+        글수정
+      </button>
     </div>
   );
 }
