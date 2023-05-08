@@ -11,9 +11,11 @@ function App() {
     "초콜렛 추천",
   ]);
   let [title, setTitle] = useState(0);
+  let [입력값, 입력값변경] = useState("");
 
-  let [따봉, 따봉변경] = useState([0, 1, 4]);
+  let [따봉, 따봉변경] = useState([0, 3, 25]);
   let [modal, setModal] = useState(false);
+  let [test, testChange] = useState("");
 
   return (
     <div className="App">
@@ -23,7 +25,7 @@ function App() {
 
       {글제목.map(function (el, i) {
         return (
-          <div className="list">
+          <div className="list" key={i}>
             <h4
               onClick={() => {
                 setModal(!modal);
@@ -32,7 +34,8 @@ function App() {
             >
               {el /* {글제목[i]} */}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   let copy = [...따봉];
                   copy[i] = copy[i] + 1;
                   따봉변경(copy);
@@ -41,13 +44,22 @@ function App() {
                 👍🏻{따봉[i]}
               </span>
             </h4>
+            <button
+              onClick={() => {
+                let copy = [...글제목];
+                copy.splice(i, 1);
+                글제목변경(copy);
+              }}
+            >
+              삭제
+            </button>
             <p>2/17 발행</p>
           </div>
         );
       })}
       {modal == true ? (
         <Modal
-          color="orangered"
+          color="lightgreen"
           글제목={글제목}
           글제목변경={글제목변경}
           title={title}
@@ -63,6 +75,21 @@ function App() {
         }}
       >
         가나다 정렬
+      </button>
+      <input
+        type="text"
+        onChange={(e) => {
+          입력값변경(e.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          let copy = [...글제목];
+          copy.unshift(입력값);
+          글제목변경(copy);
+        }}
+      >
+        입력
       </button>
     </div>
   );

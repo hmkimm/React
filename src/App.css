@@ -29,6 +29,11 @@ div {
   background-color: #eee;
   text-align: center;
 }
+
+button {
+  display: block;
+  float: right;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
