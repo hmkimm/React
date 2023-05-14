@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
+import makeBlog from "./makeBlog.jsx";
 
 function App() {
   let post = "성북 우동 맛집";
@@ -91,6 +92,7 @@ function App() {
       >
         입력
       </button>
+      <makeBlog />
     </div>
   );
 }
